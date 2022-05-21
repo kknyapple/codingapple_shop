@@ -1,19 +1,22 @@
 import { useState } from "react";
 import { Button, Navbar, Container, Nav } from "react-bootstrap";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import "./App.css";
 import bg from "./bg.png";
 import data from "./data.jsx";
 import Detail from "./routes/Detail.jsx";
+import About from "./routes/About.jsx";
+import Event from "./routes/Event.jsx";
 
 function App() {
   const [shoes, setShoes] = useState(data);
+  const navigate = useNavigate();
 
   return (
     <>
       <Navbar bg="dark" variant="dark">
         <Container>
-          <Navbar.Brand>Navbar</Navbar.Brand>
+          <Navbar.Brand>ShoeShop</Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link href="#home">Home</Nav.Link>
             <Nav.Link href="#features">Features</Nav.Link>
@@ -31,12 +34,49 @@ function App() {
                 className="main-bg"
                 style={{ backgroundImage: `url(${bg})` }}
               ></div>
+              <button
+                onClick={() => {
+                  navigate("detail");
+                }}
+              >
+                detail
+              </button>
+              <button
+                onClick={() => {
+                  navigate("about");
+                }}
+              >
+                about
+              </button>
+              <button
+                onClick={() => {
+                  navigate("event");
+                }}
+              >
+                event
+              </button>
               <Cards shoes={shoes} />
             </>
           }
         />
         <Route path="/detail" element={<Detail />} />
-        <Route path="/about" element={<div>어바웃페이지임</div>} />
+        <Route path="/about" element={<About />}>
+          <Route path="member" element={<div>멤버들</div>} />
+          <Route path="location" element={<div>회사위치</div>} />
+        </Route>
+        <Route path="/event" element={<Event />}>
+          <Route
+            path="one"
+            element={
+              <p style={{ textAlign: "center" }}>첫 주문시 양배추즙 서비스</p>
+            }
+          />
+          <Route
+            path="two"
+            element={<p style={{ textAlign: "center" }}>생일기념 쿠폰받기</p>}
+          />
+        </Route>
+        <Route path="*" element={<div>404 error</div>} />
       </Routes>
     </>
   );

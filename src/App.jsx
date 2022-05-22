@@ -36,7 +36,7 @@ function App() {
               ></div>
               <button
                 onClick={() => {
-                  navigate("detail");
+                  navigate("detail/0");
                 }}
               >
                 detail
@@ -59,7 +59,7 @@ function App() {
             </>
           }
         />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버들</div>} />
           <Route path="location" element={<div>회사위치</div>} />

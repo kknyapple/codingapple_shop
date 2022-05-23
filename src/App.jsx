@@ -7,6 +7,7 @@ import data from "./data.jsx";
 import Detail from "./routes/Detail.jsx";
 import About from "./routes/About.jsx";
 import Event from "./routes/Event.jsx";
+import Cart from "./routes/Cart";
 import axios from "axios";
 
 function App() {
@@ -109,6 +110,7 @@ function App() {
             element={<p style={{ textAlign: "center" }}>생일기념 쿠폰받기</p>}
           />
         </Route>
+        <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<div>404 error</div>} />
       </Routes>
     </>

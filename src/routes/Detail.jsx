@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
+import { Nav } from "react-bootstrap";
 
 function Detail(props) {
   const { id } = useParams();
   const [disappear, setDisappear] = useState(0);
   const [num, setNum] = useState("");
+  const [tab, setTab] = useState(1);
   const findProduct = props.shoes.find((x) => x.id === parseInt(id));
 
   useEffect(() => {
@@ -48,6 +50,19 @@ function Detail(props) {
         </div>
       </div>
       <hr></hr>
+      <Nav variant="tabs" defaultActiveKey="link0">
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(0)}>버튼0</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(1)}>버튼1</Nav.Link>
+        </Nav.Item>
+        <Nav.Item>
+          <Nav.Link onClick={() => setTab(2)}>버튼2</Nav.Link>
+        </Nav.Item>
+      </Nav>
+      <TabContent tab={tab} />
+      <hr></hr>
       <input
         onChange={(e) => {
           setNum(e.target.value);
@@ -55,6 +70,19 @@ function Detail(props) {
       ></input>
     </>
   );
+}
+
+function TabContent(props) {
+  // if (props.tab === 0) {
+  //   return <div>내용0</div>;
+  // }
+  // if (props.tab === 1) {
+  //   return <div>내용1</div>;
+  // }
+  // if (props.tab === 2) {
+  //   return <div>내용2</div>;
+  // }
+  return [<div>내용0</div>, <div>내용1</div>, <div>내용2</div>][props.tab];
 }
 
 export default Detail;

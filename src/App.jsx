@@ -7,10 +7,13 @@ import data from "./data.jsx";
 import Detail from "./routes/Detail.jsx";
 import About from "./routes/About.jsx";
 import Event from "./routes/Event.jsx";
+import axios from "axios";
 
 function App() {
   const [shoes, setShoes] = useState(data);
   const navigate = useNavigate();
+  const [count, setCount] = useState(0);
+  const [none, setNone] = useState(0);
 
   return (
     <>
@@ -55,10 +58,40 @@ function App() {
               >
                 event
               </button>
+              <button
+                onClick={() => {
+                  setCount(count + 1);
+
+                  if (count === 0) {
+                    axios
+                      .get("https://codingapple1.github.io/shop/data2.json")
+                      .then((result) => {
+                        let copy = [...shoes, ...result.data];
+                        setShoes(copy);
+                      })
+                      .catch(() => console.log("fail"));
+                  } else if (count === 1) {
+                    axios
+                      .get("https://codingapple1.github.io/shop/data3.json")
+                      .then((result) => {
+                        let copy = [...shoes, ...result.data];
+                        setShoes(copy);
+                      })
+                      .catch(() => console.log("fail"));
+                  } else {
+                    setNone(1);
+                  }
+                  console.log(count);
+                }}
+              >
+                버튼
+              </button>
+              {none === 1 ? <h2>마지막 상품입니다</h2> : null}
               <Cards shoes={shoes} />
             </>
           }
         />
+
         <Route path="/detail/:id" element={<Detail shoes={shoes} />} />
         <Route path="/about" element={<About />}>
           <Route path="member" element={<div>멤버들</div>} />

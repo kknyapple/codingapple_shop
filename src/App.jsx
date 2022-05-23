@@ -124,7 +124,7 @@ function Cards(props) {
         <div className="row">
           {props.shoes.map(function (a, i) {
             return (
-              <div className="col-md-4">
+              <div key={i} className="col-md-4">
                 <img
                   src={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`}
                   width="80%"

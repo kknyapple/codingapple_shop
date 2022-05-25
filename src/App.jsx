@@ -40,7 +40,7 @@ function App() {
               ></div>
               <button
                 onClick={() => {
-                  navigate("detail/0");
+                  navigate("detail/3");
                 }}
               >
                 detail
@@ -85,10 +85,10 @@ function App() {
                   console.log(count);
                 }}
               >
-                버튼
+                상품 더 보기
               </button>
               {none === 1 ? <h2>마지막 상품입니다</h2> : null}
-              <Cards shoes={shoes} />
+              <Cards shoes={shoes} navigate={navigate} />
             </>
           }
         />
@@ -124,7 +124,13 @@ function Cards(props) {
         <div className="row">
           {props.shoes.map(function (a, i) {
             return (
-              <div key={i} className="col-md-4">
+              <div
+                key={i}
+                onClick={() => {
+                  props.navigate(`detail/${i}`);
+                }}
+                className="col-md-4"
+              >
                 <img
                   src={`https://codingapple1.github.io/shop/shoes${i + 1}.jpg`}
                   width="80%"

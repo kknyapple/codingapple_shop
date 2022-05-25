@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { Routes, Route, Link, useNavigate, Outlet } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { addItem } from "../store";
 
 function Detail(props) {
   const { id } = useParams();
@@ -8,6 +11,8 @@ function Detail(props) {
   const [num, setNum] = useState("");
   const [tab, setTab] = useState(1);
   const findProduct = props.shoes.find((x) => x.id === parseInt(id));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const a = setTimeout(() => {
@@ -45,7 +50,23 @@ function Detail(props) {
             <h4 className="pt-5">{findProduct.title}</h4>
             <p>{findProduct.content}</p>
             <p>{findProduct.price}원</p>
-            <button className="btn btn-danger">주문하기</button>
+            <button
+              className="btn btn-danger"
+              onClick={() => {
+                dispatch(
+                  addItem({ id: id, name: findProduct.title, count: 1 })
+                );
+              }}
+            >
+              주문하기
+            </button>
+            <button
+              onClick={() => {
+                navigate("../cart");
+              }}
+            >
+              장바구니
+            </button>
           </div>
         </div>
       </div>

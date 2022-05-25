@@ -20,10 +20,10 @@ const cartData = createSlice({
   ],
   reducers: {
     increaseCount(state, action) {
-      let 번호 = state.findIndex((a) => {
+      const findId = state.findIndex((a) => {
         return a.id === action.payload;
       });
-      state[번호].count++;
+      state[findId].count++;
     },
     addItem(state, action) {
       state.push(action.payload);

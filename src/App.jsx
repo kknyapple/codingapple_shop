@@ -15,6 +15,13 @@ function App() {
   const navigate = useNavigate();
   const [count, setCount] = useState(0);
   const [none, setNone] = useState(0);
+  const [recent, setRecent] = useState(() =>
+    JSON.parse(localStorage.getItem("watched"))
+  );
+
+  useEffect(() => {
+    localStorage.setItem("watched", JSON.stringify(recent));
+  }, [recent]);
 
   return (
     <>
@@ -40,7 +47,7 @@ function App() {
               ></div>
               <button
                 onClick={() => {
-                  navigate("detail/3");
+                  navigate("detail/0");
                 }}
               >
                 detail
@@ -88,7 +95,12 @@ function App() {
                 상품 더 보기
               </button>
               {none === 1 ? <h2>마지막 상품입니다</h2> : null}
-              <Cards shoes={shoes} navigate={navigate} />
+              <Cards
+                shoes={shoes}
+                navigate={navigate}
+                recent={recent}
+                setRecent={setRecent}
+              />
             </>
           }
         />
@@ -128,6 +140,11 @@ function Cards(props) {
                 key={i}
                 onClick={() => {
                   props.navigate(`detail/${i}`);
+                  let copy = [...props.recent];
+                  copy.unshift(i);
+                  props.setRecent(copy);
+                  // console.log(i);
+                  // console.log(props.recent);
                 }}
                 className="col-md-4"
               >
